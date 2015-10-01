@@ -33,5 +33,18 @@ public class T9PalindromeNumber {
 	}
 	return true;
     }
+    
+//  回文数跟回文字符串不一样，所以可以直接倒序看是否相等
+  public static boolean isPalindrome(int x) {
+      if(x < 0) return false;
+      int y = x;
+      int res = 0;
+      while(y != 0) {
+          res = res * 10 + y % 10;
+          y /= 10;
+      }
+      return x == res;
+  }
+    
 
 }
