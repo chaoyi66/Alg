@@ -34,7 +34,7 @@ public class T6Test
 	@Test
 	public void testLengthOfLongestSubstring() {
 		String exp = expected;
-		String result = T6ZigZagConversion.convert(value1, value2);
+		String result = T06ZigZagConversion.convert(value1, value2);
 		assertEquals(exp, result);
 	}
 }

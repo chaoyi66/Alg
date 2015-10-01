@@ -36,7 +36,7 @@ public class T4Test
 	@Test
 	public void testLengthOfLongestSubstring() {
 		double len = expected;
-		double result = T4MedianOfTwoSortedArrays.findMedianSortedArrays(value1, value2);
+		double result = T04MedianOfTwoSortedArrays.findMedianSortedArrays(value1, value2);
 		assertEquals("not equal", len, result, 1e-5);
 
 	}

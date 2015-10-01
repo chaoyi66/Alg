@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.assertEquals;
-import shcell.Algorithm.T2AddTwoNumber.ListNode;
+import shcell.Algorithm.T02AddTwoNumber.ListNode;
 
 @RunWith(value = Parameterized.class)
 public class T2Test {
@@ -38,6 +38,6 @@ public class T2Test {
 
     @Test
     public void sum() {
-	assertEquals(expected,T2AddTwoNumber.addTwoNumbers(valueOne, valueTwo));
+	assertEquals(expected,T02AddTwoNumber.addTwoNumbers(valueOne, valueTwo));
     }
 }

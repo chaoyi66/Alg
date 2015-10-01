@@ -33,7 +33,7 @@ public class T9Test
     @Test
     public void testLengthOfLongestSubstring() {
 	boolean exp = expected;
-	boolean result = T9PalindromeNumber.isPalindrome1(value1);
+	boolean result = T09PalindromeNumber.isPalindrome1(value1);
 	assertEquals(exp, result);
     }
 }

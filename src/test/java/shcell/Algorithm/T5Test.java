@@ -36,7 +36,7 @@ public class T5Test
 	@Test
 	public void testLengthOfLongestSubstring() {
 		String exp = expected;
-		String result = T5LongestPalindromicSubstring.getPalindrome(value1, value2);
+		String result = T05LongestPalindromicSubstring.getPalindrome(value1, value2);
 		assertEquals(exp, result);
 	}
 }

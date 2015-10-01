@@ -33,7 +33,7 @@ public class T3Test
 	@Test
 	public void testLengthOfLongestSubstring() {
 		int len = expected;
-		int result = T3LonggestSubstring.lengthOfLongestSubstring(valueOne);
+		int result = T03LonggestSubstring.lengthOfLongestSubstring(valueOne);
 		assertEquals(len, result);
 	}
 }

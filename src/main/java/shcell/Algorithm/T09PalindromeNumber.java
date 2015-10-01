@@ -5,7 +5,7 @@ import java.util.Stack;
 /* Determine whether an integer is a palindrome. 
  * Do this without extra space.*/
 
-public class T9PalindromeNumber {
+public class T09PalindromeNumber {
 
     public static void main(String[] args) {
 	System.out.println((-6) % 5);
