@@ -1,12 +1,8 @@
 package shcell.Algorithm;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Stack;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /* Implement regular expression matching with support for '.' and '*'.
  * '.' Matches any single character.

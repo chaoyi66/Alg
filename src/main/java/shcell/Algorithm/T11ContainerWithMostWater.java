@@ -1,13 +1,5 @@
 package shcell.Algorithm;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Stack;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
 /* Given n non-negative integers a1, a2, ..., an, 
  * where each represents a point at coordinate (i, ai). 
  * n vertical lines are drawn such that the two endpoints of line i 
