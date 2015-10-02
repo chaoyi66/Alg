@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
-public class T9Test
+public class T09Test
 
 {
     private boolean expected;
@@ -24,7 +24,7 @@ public class T9Test
 		{ true, 1221 }, { true, 12321 }, { false, 12341 } });
     }
 
-    public T9Test(boolean expected, int value1) {
+    public T09Test(boolean expected, int value1) {
 	super();
 	this.expected = expected;
 	this.value1 = value1;

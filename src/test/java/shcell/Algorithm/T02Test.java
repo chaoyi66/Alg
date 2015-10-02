@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import shcell.Algorithm.T02AddTwoNumber.ListNode;
 
 @RunWith(value = Parameterized.class)
-public class T2Test {
+public class T02Test {
     private ListNode expected;
     private ListNode valueOne;
     private ListNode valueTwo;
@@ -30,7 +30,7 @@ public class T2Test {
 	return a;
     }
 
-    public T2Test(ListNode expected, ListNode valueOne, ListNode valueTwo) {
+    public T02Test(ListNode expected, ListNode valueOne, ListNode valueTwo) {
 	this.expected = expected;
 	this.valueOne = valueOne;
 	this.valueTwo = valueTwo;

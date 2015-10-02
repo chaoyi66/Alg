@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
-public class T4Test
+public class T04Test
 
 {
 	private double expected;
@@ -26,7 +26,7 @@ public class T4Test
 				{ 2.5, new double[0] , new double[] { 2,3 } } });
 	}
 
-	public T4Test(double expected, double[] value1, double[] value2) {
+	public T04Test(double expected, double[] value1, double[] value2) {
 		super();
 		this.expected = expected;
 		this.value1 = value1;

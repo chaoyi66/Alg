@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
-public class T3Test
+public class T03Test
 
 {
 	private Integer expected;
@@ -24,7 +24,7 @@ public class T3Test
 				{ 5, "ababcdea" } });
 	}
 
-	public T3Test(Integer expected, String valueOne) {
+	public T03Test(Integer expected, String valueOne) {
 		super();
 		this.expected = expected;
 		this.valueOne = valueOne;
