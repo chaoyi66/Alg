@@ -1,5 +1,7 @@
 package shcell.Algorithm;
 
+import shcell.commons.ListNode;
+
 /* Given a digit string, return all possible letter combinations that 
  * the number could represent.
  * A mapping of digit to letters (just like on the telephone buttons) is given below.
@@ -10,27 +12,6 @@ Note:
 Although the above answer is in lexicographical order, your answer could be 
 in any order you want.
 */
-
-/**
- * Definition for singly-linked list.
- */
-class ListNode {
-	int val;
-	ListNode next;
-
-	ListNode(int x) {
-		val = x;
-	}
-
-	@Override
-	public String toString() {
-		// 递归打印链表
-		if (this.next != null)
-			return "*->" + val + "\n" + this.next.toString();
-		else
-			return "*->" + val + "\n";
-	}
-}
 
 public class T19RemoveNthNodeFromEndOfList {
 

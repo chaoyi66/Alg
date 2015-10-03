@@ -7,8 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import shcell.commons.ListNode;
+
 import static org.junit.Assert.assertEquals;
-import shcell.Algorithm.T02AddTwoNumber.ListNode;
 
 @RunWith(value = Parameterized.class)
 public class T02Test {

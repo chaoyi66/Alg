@@ -1,5 +1,7 @@
 package shcell.Algorithm;
 
+import shcell.commons.ListNode;
+
 /*You are given two linked lists representing two 
  * non-negative numbers. The digits are stored 
  * in reverse order and each of their nodes contain a 
@@ -9,15 +11,7 @@ package shcell.Algorithm;
  * Output: 7 -> 0 -> 8*/
 
 public class T02AddTwoNumber {
-    public static class ListNode {
-	int val;
-	ListNode next;
-
-	ListNode(int x) {
-	    val = x;
-	}
-    }
-
+    
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 	ListNode p = new ListNode(-1), start = p;
 	int tmp = 0;
