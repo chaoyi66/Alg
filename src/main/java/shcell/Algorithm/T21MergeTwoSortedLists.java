@@ -16,7 +16,7 @@ public class T21MergeTwoSortedLists {
 		ListNode l22 = new ListNode(3);
 		l11.next = l21;
 		l12.next = l22;
-		System.out.println(mergeTwoLists(l11, l12));
+		System.out.println(mergeTwoLists3(l11, l12));
 
 	}
 
@@ -63,4 +63,24 @@ public class T21MergeTwoSortedLists {
 	        return result.next;
 	    }
 
+//	 递归版本
+	 public static ListNode mergeTwoLists3(ListNode l1, ListNode l2) {
+	        if(l1 == null){
+	            return l2;
+	        }
+	        if(l2 == null){
+	            return l1;
+	        }
+
+	        ListNode mergeHead;
+	        if(l1.val < l2.val){
+	            mergeHead = l1;
+	            mergeHead.next = mergeTwoLists(l1.next, l2);
+	        }
+	        else{
+	            mergeHead = l2;
+	            mergeHead.next = mergeTwoLists(l1, l2.next);
+	        }
+	        return mergeHead;
+	    }
 }
