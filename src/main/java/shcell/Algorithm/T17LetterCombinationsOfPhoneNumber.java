@@ -1,7 +1,5 @@
 package shcell.Algorithm;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,26 +15,19 @@ in any order you want.
 */
 
 public class T17LetterCombinationsOfPhoneNumber {
+	static String[] mapping = new String[] { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs",
+			"tuv", "wxyz" };
 
 	public static void main(String[] args) {
-		// HashSet<person> hs = new HashSet<>();
-		// person p1 = new person("w", 20);
-		//
-		// hs.add(p1);
-		// hs.add(new person("d", 22));
-		// System.out.println(hs.add(new person("w", 20)));
-		// System.out.println(Arrays.deepToString(hs.toArray()));
-		System.out.println(letterCombinations("232").size());
+		System.out.println(letterCombinations1("232"));
 
 	}
 
-	// 暴力解法
+	// FIFO队列的精妙解法
 	public static List<String> letterCombinations(String digits) {
 		LinkedList<String> ans = new LinkedList<String>();
 		if (digits.length() == 0)
 			return ans;
-		String[] mapping = new String[] { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv",
-				"wxyz" };
 		ans.add("");
 		for (int i = 0; i < digits.length(); i++) {
 			int x = Character.getNumericValue(digits.charAt(i));
@@ -50,32 +41,24 @@ public class T17LetterCombinationsOfPhoneNumber {
 
 	}
 
-}
+	// 暴力解法
+	public static List<String> letterCombinations1(String digits) {
+		LinkedList<String> ans = new LinkedList<String>();
+		if (digits.length() == 0)
+			return ans;
+		ans.add("");
+		for (int i = 0; i < digits.length(); i++) {
+			int x = Character.getNumericValue(digits.charAt(i));
+			LinkedList<String> tmp = new LinkedList<>();
+			for (String s : ans) {
+				for (char c : mapping[x].toCharArray()) {
+					tmp.add(s + c);
+				}
+			}
+			ans = tmp;
+		}
+		return ans;
 
-class person {
-	public String name;
-	public int age;
-
-	public person(String name, int age) {
-		this.name = name;
-		this.age = age;
-	}
-
-	@Override
-	public String toString() {
-		return "*person: " + name + " " + age;
-
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return false;
-
-	}
-
-	@Override
-	public int hashCode() {
-		return age;
 	}
 
 }
