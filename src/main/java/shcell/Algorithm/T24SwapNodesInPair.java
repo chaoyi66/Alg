@@ -10,10 +10,10 @@ import shcell.commons.ListNode;
 public class T24SwapNodesInPair {
 
 	public static void main(String[] args) {
-		int n = 100000;
+		int n = 300000;
 		ListNode head1=grLinkedList(n);
 		long t1=System.currentTimeMillis();
-//		swapPairs(head1);
+		swapPairs(head1);
 		long t2=System.currentTimeMillis();
 		System.out.println("function1 cost: "+(t2-t1));
 //		System.out.println("result: \n"+head1);
