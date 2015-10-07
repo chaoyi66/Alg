@@ -58,30 +58,42 @@ public class T28ImplementStrStr {
 	public static int strStr(String text, String pattern) {
 		int tLen = text.length();
 		int pLen = pattern.length();
-
+		if (tLen < pLen) {
+			return -1;
+		}
+		if (tLen == pLen) {
+			return text.equals(pattern) ? 0 : -1;
+		}
+		// 计算next数组
 		int[] next = new int[pLen];
-		for (int i = 0; i < pLen; i++) {
-			for (int j = 1; j < i; j++) {
-				if (pattern.substring(j, i).equals(pattern.substring(0, i - j))) {
-					next[i] = i - j;
-				}
+		next[0] = -1;
+		int k = -1;
+		int j = 0;
+		while (j < pLen - 1) {
+			// p[k]表示前缀，p[j]表示后缀
+			if (k == -1 || pattern.charAt(j) == pattern.charAt(k)) {
+				++k;
+				++j;
+				next[j] = k;
+			} else {
+				k = next[k];
 			}
 		}
-		next[0] = -1;
-		int i = 0, j = 0;
-		while (i < tLen && j < pLen) {
+		// 字符串匹配
+		int i = 0, jj = 0;
+		while (i < tLen && jj < pLen) {
 			// ①如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++
-			if (j == -1 || text.charAt(i) == pattern.charAt(j)) {
+			if (jj == -1 || text.charAt(i) == pattern.charAt(jj)) {
 				i++;
-				j++;
+				jj++;
 			} else {
 				// ②如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]
 				// next[j]即为j所对应的next值
-				j = next[j];
+				jj = next[jj];
 			}
 		}
-		if (j == pLen)
-			return i - j;
+		if (jj == pLen)
+			return i - jj;
 		else
 			return -1;
 
