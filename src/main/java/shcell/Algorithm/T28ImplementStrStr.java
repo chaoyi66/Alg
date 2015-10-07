@@ -3,7 +3,9 @@ package shcell.Algorithm;
 public class T28ImplementStrStr {
 
 	public static void main(String[] args) {
-		System.out.println(strStr("BBC ABCDAB ABCDABCDABDE", "ABCDABD"));
+//		System.out.println(strStr("BBC ABCDAB ABCDABCDABDE", "ABCDABD"));
+//		System.out.println(5<<1);
+		System.out.println(Integer.MAX_VALUE-(1<<(Integer.SIZE-1)));
 	}
 
 	// 暴力解法
