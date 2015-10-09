@@ -1,18 +1,37 @@
 package shcell.Algorithm;
 
-public class T36ValidSudoku {
+public class T37SudokuSolver {
 
 	public static void main(String[] args) {
-		String[] s = new String[] { ".........", "4........", "......6..", "...38....", ".5...6..1",
-				"8......6.", ".........", "..7.9....", "...6....." };
-		char[][] board = new char[s.length][];
-		for (int i = 0; i < s.length; i++) {
-			board[i] = s[i].toCharArray();
-		}
-		System.out.println(isValidSudoku(board));
+		// System.out.println(removeNthFromEnd2(1));
 	}
 
 	// 暴力解法
+	public static void solveSudoku(char[][] board) {
+		testNumber(board, 0);
+	}
+
+	private static boolean testNumber(char[][] board, int row) {
+		for (int i = row; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] != '.')
+					continue;
+				else {
+					for (int j2 = 0; j2 < board.length; j2++) {
+						board[i][j] = (char) ('1' + j2);
+						if (!isValidSudoku(board))
+							continue;
+						if (testNumber(board, i))
+							return true;
+					}
+					board[i][j] = '.';
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	public static boolean isValidSudoku(char[][] board) {
 		int len = board.length;
 		boolean[][] colValid = new boolean[len][len], rowValid = new boolean[len][len],
