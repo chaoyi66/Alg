@@ -3,7 +3,7 @@ package shcell.Algorithm;
 public class T35SearchInsertPosition {
 
 	public static void main(String[] args) {
-		int[] nums = new int[] { 1,2,3,6,7,8,9 };
+		int[] nums = new int[] { 1, 2, 3, 6, 7, 8, 9 };
 		int target = 5;
 		System.out.println(searchInsert1(nums, target));
 	}
@@ -43,18 +43,13 @@ public class T35SearchInsertPosition {
 		int lo = 0, hi = nums.length - 1;
 		while (lo < hi) {
 			int mid = lo + (hi - lo) / 2;
-			System.out.println("mid :"+mid);
 			if (nums[mid] == target)
 				return mid;
 			else if (nums[mid] < target)
 				lo = mid + 1;
 			else
 				hi = mid - 1;
-
 		}
-		System.out.println("lo: "+lo);
-		System.out.println("hi: "+hi);
-		
 		return nums[lo] < target ? lo + 1 : lo;
 	}
 }
