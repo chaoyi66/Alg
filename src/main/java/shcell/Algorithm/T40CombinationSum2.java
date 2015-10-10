@@ -7,13 +7,13 @@ import java.util.List;
 public class T40CombinationSum2 {
 
 	public static void main(String[] args) {
-		int[] candidates = new int[] { 1 };
-		int target = 1;
+		int[] candidates = new int[] { 1, 2, 2, 2, 2, 2, 2 };
+		int target = 7;
 		System.out.println(new T40CombinationSum2().combinationSum2(candidates, target));
 	}
 
 	List<List<Integer>> result = new ArrayList<List<Integer>>();
-	ArrayList<Integer> solu = new ArrayList<>();
+	ArrayList<Integer> path = new ArrayList<>();
 	int[] candidates;
 	int targe;
 
@@ -31,15 +31,16 @@ public class T40CombinationSum2 {
 		if (sum > targe)
 			return;
 		if (sum == targe) {
-			if (!result.contains(solu))
-				result.add(new ArrayList<>(solu));
+			result.add(new ArrayList<>(path));
 			return;
 		}
 		for (int i = index; i < candidates.length; i++) {
+			if (i > index && candidates[i - 1] == candidates[i]) // 第一个数值的子节点已经解决这种情况，所以不需要重复
+				continue;
 			int sumCopy = sum + candidates[i];
-			solu.add(candidates[i]);
+			path.add(candidates[i]);
 			dfs(sumCopy, i + 1);
-			solu.remove(solu.size() - 1);
+			path.remove(path.size() - 1);
 		}
 	}
 
