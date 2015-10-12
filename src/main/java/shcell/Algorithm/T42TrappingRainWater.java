@@ -10,6 +10,91 @@ public class T42TrappingRainWater {
 	}
 
 	public static int trap(int[] height) {
+
+		int left = 0, right = height.length - 1;
+
+		int level = 0, result = 0;
+
+		while (left < right) {
+
+			level = Math.max(Math.min(height[left], height[right]), level);
+
+			if (height[left] <= height[right]) {
+				result += level - height[left];
+				left++;
+			} else {
+				result += level - height[right];
+				right--;
+			}
+		}
+
+		return result;
+
+	}
+
+	public static int trap1(int[] height) {
+		if (height.length < 3)
+			return 0;
+
+		int ans = 0;
+		int l = 0, r = height.length - 1;
+
+		// find the left and right edge which can hold water
+		while (l < r && height[l] <= height[l + 1])
+			l++;
+		while (l < r && height[r] <= height[r - 1])
+			r--;
+
+		while (l < r) {
+			int left = height[l];
+			int right = height[r];
+			if (left <= right) {
+				// add volum until an edge larger than the left edge
+				while (l < r && left >= height[++l]) {
+					ans += left - height[l];
+				}
+			} else {
+				// add volum until an edge larger than the right volum
+				while (l < r && height[--r] <= right) {
+					ans += right - height[r];
+				}
+			}
+		}
+		return ans;
+	}
+
+	public static int trap2(int[] height) {
+		// 找出最大值的位置
+		int maxHeight = 0, maxPosition = 0;
+		for (int i = 0; i < height.length; i++) {
+			if (height[i] > maxHeight) {
+				maxHeight = height[i];
+				maxPosition = i;
+			}
+		}
+		int[] h = new int[height.length];
+		int maxLeft = 0;
+		for (int i = 1; i <= maxPosition; i++) {
+			if (height[i - 1] > maxLeft)
+				maxLeft = height[i - 1];
+			h[i] = maxLeft;
+		}
+		int maxRight = 0;
+		for (int i = height.length - 2; i >= maxPosition; i--) {
+			if (height[i + 1] > maxRight)
+				maxRight = height[i + 1];
+			h[i] = maxRight;
+		}
+		int water = 0;
+		for (int i = 0; i < h.length; i++) {
+			if (h[i] > height[i])
+				water += h[i] - height[i];
+		}
+		return water;
+
+	}
+
+	public static int trap3(int[] height) {
 		if (height.length < 2)
 			return 0;
 		// 建堆
