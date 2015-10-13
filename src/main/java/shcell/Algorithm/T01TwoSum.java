@@ -14,17 +14,17 @@ Input: numbers={2, 7, 11, 15}, target=9
 Output: index1=1, index2=2*/
 
 public class T01TwoSum {
- public static int[] twoSum(int[] nums, int target) {
-     int[] result=new int[2];
-     HashMap< Integer, Integer> hMap=new HashMap<>();
-     for(int i=0;i<nums.length;i++){
-	 if (hMap.containsKey(target-nums[i])) {
-	    result[1]=i+1;
-	    result[0]=hMap.get(target-nums[i]);
+	public static int[] twoSum(int[] nums, int target) {
+		int[] result = new int[2];
+		HashMap<Integer, Integer> hMap = new HashMap<>();
+		for (int i = 0; i < nums.length; i++) {
+			if (hMap.containsKey(target - nums[i])) {
+				result[1] = i + 1;
+				result[0] = hMap.get(target - nums[i]);
+			}
+			hMap.put(nums[i], i + 1);
+		}
+		return result;
+
 	}
-	 hMap.put(nums[i], i+1);
-     }
-    return result;
-        
-    }
 }
