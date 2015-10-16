@@ -4,41 +4,37 @@ public class T55JumpGame {
 
 	public static void main(String[] args) {
 		// System.out.println(removeNthFromEnd2(1));
-		int[] nums = new int[] { 1,1,1,0 };
-		System.out.println(canJump1(nums));
+		int[] nums = new int[] { 2,1,0,0 };
+		System.out.println(canJump(nums));
 	}
 
 	public static boolean canJump(int[] nums) {
-		int next = 0, span = 0, tmp = 0, cur = 0;
-		while (span < nums.length - 1) {
-			tmp = 0;
-			for (int i = cur+1; i <= nums[cur]; i++) {
-				if(i>=nums.length-1)
+		int cur = 0, next = 0, span = 0;
+		while (cur < nums.length) {
+			int maxStep = nums[cur];
+			for (int i = cur + 1; i <= maxStep + cur; i++) {
+				if (i >= nums.length - 1)
 					return true;
-				if (tmp < i + nums[i]) {
-					tmp = i + nums[i];
+				if (nums[i] + i >= span) {
+					span = nums[i] + i;
 					next = i;
 				}
 			}
-			cur = next;
-			if (tmp <= span)
+			if (cur == span)
 				break;
-			span=tmp;
+			else
+				cur = next;
 		}
 		return span >= nums.length - 1;
 	}
-//	暴力方法
-	public static boolean canJump1(int[] nums) {
-		int  span = 0;
-		for (int i = 0; i < nums.length; i++) {
-			if(span<i+nums[i])
-				span=i+nums[i];
-			else 
-				return false;
-			
-			if(span>=nums.length-1)
-				return true;
-		}
-		return false;
+
+	// 暴力方法
+	public boolean canJump1(int[] nums) {
+	    int reachable = 0;
+	    for (int i=0; i<nums.length; ++i) {
+	        if (i > reachable) return false;
+	        reachable = Math.max(reachable, i + nums[i]);
+	    }
+	    return true;
 	}
 }
