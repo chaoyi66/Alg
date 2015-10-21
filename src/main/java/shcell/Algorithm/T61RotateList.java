@@ -21,7 +21,7 @@ public class T61RotateList {
 			cur = cur.next;
 			count++;
 		}
-		k = k % count; // 归一化的[0,count)区间
+		k = k % count; // 归一化到[0,count)区间
 		if (k == 0) {
 			return head;
 		}
