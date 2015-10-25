@@ -1,4 +1,4 @@
-package shcell.Algorithm;
+package part2;
 
 public class T {
 	
