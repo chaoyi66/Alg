@@ -1,11 +1,6 @@
 package test;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 public class TestPredicate {
 
