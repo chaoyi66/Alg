@@ -18,9 +18,7 @@ public class T86PartionList {
 		ListNode larger = new ListNode(0);
 		ListNode pl = larger;
 		while (node.next != null) {
-			ListNode tmp = node;
 			node = node.next;
-			tmp.next = null;
 			if (node.val >= x) {
 				pl.next = node;
 				pl = pl.next;
@@ -29,12 +27,11 @@ public class T86PartionList {
 				ps = ps.next;
 			}
 		}
-		if (smaller.next != null) {
-			head = smaller.next;
-			ps.next = larger.next;
-		} else if (larger.next != null)
-			head = larger.next;
-		return head;
+
+		pl.next = null;// 避免环状
+		
+		ps.next = larger.next;
+		return smaller.next;
 
 	}
 
