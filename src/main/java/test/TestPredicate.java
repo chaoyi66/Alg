@@ -31,7 +31,7 @@ public class TestPredicate {
 //
 //		System.out.println(numsWithoutNull);
 		
-		Optional< String > fullName = Optional.ofNullable( null );
+		Optional< String > fullName = Optional.ofNullable( "tt" );
 		
 		System.out.println( "Full Name is set? " + fullName.isPresent() );       
 		
