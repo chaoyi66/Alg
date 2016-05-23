@@ -12,6 +12,7 @@ public class T202HappyNumber {
 		return isHappy(n, new HashSet<>());
 	}
 
+	// 递归
 	public static boolean isHappy(int n, HashSet<Integer> set) {
 		System.out.println(n);
 		if (n == 1)
@@ -28,6 +29,7 @@ public class T202HappyNumber {
 		return isHappy(n, set);
 	}
 
+	// 循环
 	public static boolean isHappy1(int n) {
 		HashSet<Integer> set = new HashSet<>();
 		while (set.add(n)) {
@@ -43,6 +45,34 @@ public class T202HappyNumber {
 			}
 		}
 		return false;
+	}
+
+	// 看成一个检查链表环的问题，可以用O(1)空间解决
+	public boolean isHappy2(int n) {
+		int x = n;
+		int y = n;
+		while (x > 1) {
+			x = cal(x);
+			if (x == 1)
+				return true;
+			y = cal(cal(y));
+			if (y == 1)
+				return true;
+
+			if (x == y)
+				return false;
+		}
+		return true;
+	}
+
+	public int cal(int n) {
+		int x = n;
+		int s = 0;
+		while (x > 0) {
+			s = s + (x % 10) * (x % 10);
+			x = x / 10;
+		}
+		return s;
 	}
 
 }
