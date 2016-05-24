@@ -15,7 +15,7 @@ public class T83RemoveDuplicatesFromSortedList {
 
 	public static ListNode deleteDuplicates1(ListNode head) {
 		ListNode p = head;
-		while (p != null && p.next != null) {
+		while (p != null) {
 			while (p.next != null && p.val == p.next.val) {
 				p.next = p.next.next;
 			}
