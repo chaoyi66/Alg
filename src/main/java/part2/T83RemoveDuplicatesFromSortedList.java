@@ -24,12 +24,21 @@ public class T83RemoveDuplicatesFromSortedList {
 		return head;
 	}
 
+	public ListNode deleteDuplicates2(ListNode head) {
+		ListNode current = head;
+		while (current != null && current.next != null)
+			if (current.next.val > current.val)
+				current = current.next;
+			else
+				current.next = current.next.next;
+		return head;
+	}
+
 	public static ListNode deleteDuplicates(ListNode head) {
 		if (head == null || head.next == null)
 			return head;
 		head.next = deleteDuplicates(head.next);
 		return head.val == head.next.val ? head.next : head;
-
 	}
 
 }
