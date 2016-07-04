@@ -1,5 +1,9 @@
 package test;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 public class TestPredicate {
@@ -31,7 +35,7 @@ public class TestPredicate {
 //
 //		System.out.println(numsWithoutNull);
 		
-		Optional< String > fullName = Optional.ofNullable( "tt" );
+		Optional< String > fullName = Optional.ofNullable(null );
 		
 		System.out.println( "Full Name is set? " + fullName.isPresent() );       
 		
@@ -39,6 +43,22 @@ public class TestPredicate {
 		
 		System.out.println( fullName.map( s -> "Hey " + s + "!" ).orElse( "Hey Stranger!" ) );
 
+		Runtime runtime=Runtime.getRuntime();
+		System.out.println(runtime.maxMemory());
+		System.out.println(runtime.freeMemory());
+		System.out.println(runtime.totalMemory());
+		System.out.println(runtime.availableProcessors());
+		
+		ArrayList<String> al=new ArrayList<>();
+		al.add("q");
+		al.add("w");
+		al.add("e");
+		al.add("r");
+		
+		System.out.println(al);
+		al.remove(3);
+		System.out.println(al);
+		
 
 	}
 

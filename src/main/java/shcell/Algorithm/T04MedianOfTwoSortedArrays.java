@@ -32,7 +32,6 @@ public class T04MedianOfTwoSortedArrays {
 
 	}
 
-	// 暴力解法，先融合数组，再取中位值
 	public static double findMedianSortedArrays(double[] nums1, double[] nums2) {
 		int m = nums1.length, n = nums2.length;
 		if ((n + m) % 2 == 1)
