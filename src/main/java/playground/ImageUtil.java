@@ -46,7 +46,7 @@ public class ImageUtil {
 	}
 
 	private static String processTextFromAndroid(String desc) {
-		//TODO È¥µô<body>ÒÔÍâµÄ±êÇ©
+		//TODO å»æ‰<body>ä»¥å¤–çš„æ ‡ç­¾
 		Pattern p = Pattern.compile("<body>(.*)</body>");
 		Matcher m = p.matcher(desc);
 		if (m.find()) {
@@ -57,7 +57,7 @@ public class ImageUtil {
 
 
 	/**
-	 * @param imgUrl Í¼Æ¬µØÖ·
+	 * @param imgUrl å›¾ç‰‡åœ°å€
 	 * @return
 	 */
 	public static BufferedImage getBufferedImage(String imgUrl) {
