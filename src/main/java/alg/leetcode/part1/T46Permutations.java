@@ -84,7 +84,7 @@ public class T46Permutations {
 	 * position.
 	 * 
 	 * For example, if the input num[] is {1,2,3}: First, add 1 into the initial
-	 * List<List<Integer>> (let's call it "answer").
+	 * List<List<Integer>> (let's work it "answer").
 	 * 
 	 * Then, 2 can be added in front or after 1. So we have to copy the List in
 	 * answer (it's just {1}), add 2 in position 0 of {1}, then copy the
