@@ -7,7 +7,7 @@ interface Handler {
 	void handle(Object result);
 }
 
-public class Boss2 {
+public class Controller2 {
 
 
 	static ExecutorService DbWorker = Executors.newFixedThreadPool(100);
@@ -21,6 +21,7 @@ public class Boss2 {
 	}
 
 	private static void check(Object result) {
+		//执行业务逻辑
 		System.out.println("boss check task, result=" + result);
 	}
 
@@ -60,6 +61,7 @@ public class Boss2 {
 
 		@Override
 		public void run() {
+			// 完成数据库任务
 			// System.out.println(Thread.currentThread().getName() + " sell ticket" + i);
 			try {
 				Boolean rs = ticketDAO.sellTicket();
