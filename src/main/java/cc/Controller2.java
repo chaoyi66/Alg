@@ -9,12 +9,10 @@ interface Handler {
 
 public class Controller2 {
 
-
-	static ExecutorService DbWorker = Executors.newFixedThreadPool(100);
 	static TicketDAO ticketDAO = new TicketDAO();
 
 	public static void main(String args[]) throws Exception {
-		int taskCount = 2000;
+		int taskCount = 100;
 		ExecutorService eventLoop = Executors.newSingleThreadExecutor();
 		for (int i = 0; i < taskCount; i++)
 			eventLoop.submit(new Event(i, result -> check(result)));
@@ -25,7 +23,7 @@ public class Controller2 {
 		System.out.println("boss check task, result=" + result);
 	}
 
-	static class Event implements Runnable, Handler {
+	static class Event implements Runnable {
 		Handler handler;
 		int i;
 
@@ -36,39 +34,15 @@ public class Controller2 {
 
 		@Override
 		public void run() {
-			DbWorker.submit(new DbTask(i, (result) -> {
-				handle(result);
+			ticketDAO.sellTicketAsync(i, result -> {
+				doService(result);
 				handler.handle(result);
-			}
-			));
+			});
 		}
 
-		@Override
-		public void handle(Object result) {
+		public void doService(Object result) {
 			//执行业务逻辑
-			System.out.println(" process task" + i + ", result=" + result);
-		}
-	}
-
-	static class DbTask implements Runnable {
-		Handler handler;
-		int i;
-
-		public DbTask(int i, Handler handler) {
-			this.i = i;
-			this.handler = handler;
-		}
-
-		@Override
-		public void run() {
-			// 完成数据库任务
-			// System.out.println(Thread.currentThread().getName() + " sell ticket" + i);
-			try {
-				Boolean rs = ticketDAO.sellTicket();
-				handler.handle(rs);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			System.out.println("process task" + i + ", result=" + result);
 		}
 	}
 
