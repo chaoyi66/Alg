@@ -1,44 +1,43 @@
 package cc;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class Boss {
+
+	static TicketDAO ticketDAO = new TicketDAO();
+	static ExecutorService DbWorker = Executors.newFixedThreadPool(100);
 
 
-/**
- * created by chaoyi on 8/20/2017
- */
-
-public class Boss implements Callable {
-	private static Boss boss = new Boss();
-	private static int taskCount = 5;
-	public static void main(String args[]) throws Exception {
-		System.out.println("boss has 5 task with deadline");
-		new Thread(() -> {
-			try {
-				new SlowWorker().work(taskCount--, 1, boss);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}).start();
-		System.out.println("boss leave");
+	public static void main(String[] args) {
+		for (int i = 0; i < 2000; i++) {
+			final int finalI = i;
+			new Thread(() -> {
+				try {
+					Future<Boolean> future = DbWorker.submit(new DbTask(finalI));
+					System.out.println(String.format("task %s result: %s", finalI, future.get()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}).start();
+		}
+		DbWorker.shutdown();
 	}
 
-	@Override
-	public Object call() throws Exception {
-		System.out.println("boss check");
-		if (taskCount >= 1)
-			new SlowWorker().work(taskCount--, 1, boss);
-		return null;
-	}
+	static class DbTask implements Callable<Boolean> {
+		int i;
 
-	static class SlowWorker {
-		public void work(int number, int deadline, Callable boss) throws Exception {
-			System.out.println(Thread.currentThread().getName() + "...");
-			System.out.println("worker " + number + " hard working...");
-			// 这里如果在处理很慢的任务，是同样需要嵌套回调的
-			TimeUnit.SECONDS.sleep(deadline);
-			System.out.println("worker " + number + " finish!!!");
-			boss.call();
+		public DbTask(int i) {
+			this.i = i;
+		}
+
+		@Override
+		public Boolean call() throws Exception {
+			return ticketDAO.sellTicket();
 		}
 	}
+
 }
+
