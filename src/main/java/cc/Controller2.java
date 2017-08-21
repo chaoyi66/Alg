@@ -1,19 +1,32 @@
 package cc;
 
+import com.google.common.collect.Maps;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
 public class Controller2 {
 
-	private static TicketDAO ticketDAO = new TicketDAO();
-	private static ExecutorService eventLoop = Executors.newSingleThreadExecutor();
-	private static ExecutorService workers = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+	private static TicketDAO ticketDAO;
+	private static ExecutorService eventLoop;
+	private static ExecutorService workers;
+	private static Map<String, ExecutorService> eventbus;
+
+	public static void init() {
+		ticketDAO = new TicketDAO();
+		eventLoop = Executors.newSingleThreadExecutor();
+		workers = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		eventbus = Maps.newConcurrentMap();
+		eventbus.put("ticketService", workers);
+	}
 
 	public static void main(String args[]) throws Exception {
-		for (int i = 0; i < 100; i++) {
+		init();
+		for (int i = 0; i < 20; i++) {
 			HttpServletRequest request = null;
 			HttpServletResponse response = null;
 			eventLoop.submit(new HttpRequestEvent(i, rs -> check(request, response, rs)));
@@ -36,7 +49,7 @@ public class Controller2 {
 
 		@Override
 		public void run() {
-			workers.submit(new TicketServiceEvent(i, result -> handler.handle(result)));
+			eventbus.get("ticketService").submit(new TicketServiceEvent(i, result -> handler.handle(result)));
 		}
 	}
 

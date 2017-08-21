@@ -7,7 +7,7 @@ import java.util.concurrent.Future;
 
 public class TicketDAO {
 	static ExecutorService DbThreadPoll = Executors.newFixedThreadPool(100);
-	private volatile int num = 20;
+	private volatile int num = 10;
 
 	public boolean sellTicket() {
 		Future<Boolean> future = DbThreadPoll.submit(new DbTask());
