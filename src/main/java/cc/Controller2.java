@@ -1,11 +1,10 @@
 package cc;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-interface Handler {
-	void handle(Object result);
-}
 
 public class Controller2 {
 
@@ -13,14 +12,16 @@ public class Controller2 {
 
 	public static void main(String args[]) throws Exception {
 		int taskCount = 100;
+		HttpServletRequest request = null;
+		HttpServletResponse response = null;
 		ExecutorService eventLoop = Executors.newSingleThreadExecutor();
 		for (int i = 0; i < taskCount; i++)
-			eventLoop.submit(new Event(i, result -> check(result)));
+			eventLoop.submit(new Event(i, rs -> check(request, response, rs)));
 	}
 
-	private static void check(Object result) {
-		//执行业务逻辑
-		System.out.println("boss check task, result=" + result);
+	private static void check(HttpServletRequest request, HttpServletResponse response, Object result) {
+		//执行web层业务逻辑
+		System.out.println("controller check result=" + result);
 	}
 
 	static class Event implements Runnable {
@@ -41,7 +42,7 @@ public class Controller2 {
 		}
 
 		public void doService(Object result) {
-			//执行业务逻辑
+			//执行service层业务逻辑
 			System.out.println("process task" + i + ", result=" + result);
 		}
 	}
