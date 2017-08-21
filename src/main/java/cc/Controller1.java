@@ -26,8 +26,8 @@ public class Controller1 {
 
 	private static boolean doService(int i) {
 		//执行Service层业务逻辑
-		boolean result = ticketDAO.sellTicket(i);
-		System.out.println("service process ... , result=" + result);
+		boolean result = ticketDAO.sellTicket();
+		System.out.println("process task" + i + ", result=" + result);
 		return result;
 	}
 

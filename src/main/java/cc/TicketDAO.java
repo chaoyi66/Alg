@@ -9,8 +9,8 @@ public class TicketDAO {
 	static ExecutorService DbThreadPoll = Executors.newFixedThreadPool(100);
 	private volatile int num = 20;
 
-	public boolean sellTicket(int i) {
-		Future<Boolean> future = DbThreadPoll.submit(new DbTask(i));
+	public boolean sellTicket() {
+		Future<Boolean> future = DbThreadPoll.submit(new DbTask());
 		try {
 			return future.get();
 		} catch (Exception e) {
@@ -19,8 +19,8 @@ public class TicketDAO {
 		return false;
 	}
 
-	public void sellTicketAsync(int i, Handler handler) {
-		DbThreadPoll.submit(new AsyncDbTask(i, handler));
+	public void sellTicketAsync(Handler handler) {
+		DbThreadPoll.submit(new AsyncDbTask(handler));
 	}
 
 	private synchronized boolean trySell() {
@@ -42,14 +42,8 @@ public class TicketDAO {
 	}
 
 	class DbTask implements Callable<Boolean> {
-		int i;
-
-		public DbTask(int i) {
-			this.i = i;
-		}
-
 		@Override
-		public Boolean call() throws Exception {
+		public Boolean call() {
 			// 完成数据库任务
 			return trySell();
 		}
@@ -57,22 +51,15 @@ public class TicketDAO {
 
 	class AsyncDbTask implements Runnable {
 		Handler handler;
-		int i;
 
-		public AsyncDbTask(int i, Handler handler) {
-			this.i = i;
+		public AsyncDbTask(Handler handler) {
 			this.handler = handler;
 		}
 
 		@Override
 		public void run() {
 			// 完成数据库任务
-			try {
-				Boolean rs = trySell();
-				handler.handle(rs);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			handler.handle(trySell());
 		}
 	}
 

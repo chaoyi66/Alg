@@ -35,7 +35,7 @@ public class Controller2 {
 
 		@Override
 		public void run() {
-			ticketDAO.sellTicketAsync(i, result -> {
+			ticketDAO.sellTicketAsync( result -> {
 				doService(result);
 				handler.handle(result);
 			});
