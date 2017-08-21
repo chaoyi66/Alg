@@ -5,30 +5,32 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Controller1 {
 
-	static TicketDAO ticketDAO = new TicketDAO();
+	private static TicketService ticketService = new TicketService();
 
 	public static void main(String[] args) {
 		for (int i = 0; i < 100; i++) {
-			HttpServletRequest request = null;
-			HttpServletResponse response = null;
 			final int finalI = i;
 			new Thread(() -> {
-				boolean rs = doService(finalI);
-				check(request, response, rs);
+				boolean rs = ticketService.sellTicket(finalI);
+				check(null, null, rs);
 			}).start();
 		}
 	}
-
 
 	private static void check(HttpServletRequest request, HttpServletResponse response, Object result) {
 		System.out.println("controller check result=" + result);
 	}
 
-	private static boolean doService(int i) {
-		//执行Service层业务逻辑
-		boolean result = ticketDAO.sellTicket();
-		System.out.println("process task" + i + ", result=" + result);
-		return result;
+	private static class TicketService {
+		private static TicketDAO ticketDAO = new TicketDAO();
+
+		private static boolean sellTicket(int i) {
+			//执行Service层业务逻辑
+			boolean result = ticketDAO.sellTicket();
+			System.out.println("process task" + i + ", result=" + result);
+			return result;
+		}
+
 	}
 
 }

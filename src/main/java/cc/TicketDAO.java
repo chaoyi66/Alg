@@ -20,7 +20,7 @@ public class TicketDAO {
 	}
 
 	public void sellTicketAsync(Handler handler) {
-		DbThreadPoll.submit(new AsyncDbTask(handler));
+		DbThreadPoll.submit(new AsyncDbTask(result -> handler.handle(result)));
 	}
 
 	private synchronized boolean trySell() {
