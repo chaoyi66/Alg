@@ -13,6 +13,7 @@ public class CodeTplUtil {
 	private final static String TYPE_I_SERVICE = "Iservice";
 	private final static String TYPE_SERVICE_IMPL = "service_impl";
 	private final static String TYPE_CONTROLLER = "controller";
+	private final static String TYPE_PC_CONTROLLER = "pcController";
 	private final static String TYPE_MODEL = "model";
 	private final static String TYPE_PARAM = "param";
 	private final static String TYPE_PAGE_PARAM = "page_param";
@@ -22,8 +23,19 @@ public class CodeTplUtil {
 		CodeTplUtil.createDir(targetPath);
 
 		// 创建临时文件
-		List<String> prefixs = Lists.newArrayList("activity", "band", "cart", "display", "empStatus", "env", "gift", "motive", "motiveCat", "order", "product", "quote", "saleTarget", "saleTargetSplit", "channel", "clientFeature", "client");
+		List<String> prefixs = Lists.newArrayList("tag", "activityTag", "waveTech",
+				"activity", "activityUser", "position", "trait", "mind",
+				"frequency", "manager", "organization", "power", "layout",
+				"setoutBom", "setout", "budget", "deal", "meetTemplate",
+				"meeting", "surveyItem", "activitySurvey", "tidy", "motive",
+				"stock", "stockProduct", "env", "image", "empStatus",
+				"target", "targetSplit", "wave", "customer", "cusNum", "cusVip", "gift",
+				"price", "paper",  "advTemplate", "advertise");
+		// 创建临时文件
+		// List<String> prefixs = Lists.newArrayList("productCat");
+
 		buildController(targetPath, prefixs);
+		buildPcController(targetPath, prefixs);
 		buildService(targetPath, prefixs);
 		buildIService(targetPath, prefixs);
 		buildServiceImpl(targetPath, prefixs);
@@ -48,7 +60,7 @@ public class CodeTplUtil {
 		for (String prefix : prefixs) {
 			System.out.println();
 			System.out.println(String.format(
-					"<dubbo:reference id=\"%sService\" interface=\"com.cc.course.api.I%sService\" version=\"${cc.course.service.version} \"check=\"false\" />",
+					"<dubbo:reference id=\"%sService\" interface=\"com.cc.xt.market.api.I%sService\" version=\"${cc.xt.market.service.version}\" check=\"false\" />",
 					prefix, char1Upper(prefix)));
 		}
 
@@ -62,7 +74,7 @@ public class CodeTplUtil {
 		for (String prefix : prefixs) {
 			System.out.println();
 			System.out.println(String.format(
-					"<dubbo:service interface=\"com.cc.course.api.I%sService\" ref=\"%sService\" version=\"${cc.course.service.version}\" />",
+					"<dubbo:service interface=\"com.cc.xt.market.api.I%sService\" ref=\"%sService\" version=\"${cc.xt.market.service.version}\" />",
 					char1Upper(prefix), prefix));
 		}
 
@@ -89,6 +101,13 @@ public class CodeTplUtil {
 		String suffix = "Controller.java";
 		for (String prefix : prefixs) {
 			CodeTplUtil.createFile(targetPath + "/controller/", prefix, suffix, TYPE_CONTROLLER);
+		}
+	}
+
+	private static void buildPcController(String targetPath, List<String> prefixs) {
+		String suffix = "Controller.java";
+		for (String prefix : prefixs) {
+			CodeTplUtil.createFile(targetPath + "/pccontroller/", prefix, suffix, TYPE_PC_CONTROLLER);
 		}
 	}
 
@@ -208,6 +227,8 @@ public class CodeTplUtil {
 				return tplPath + "serviceImpl.java";
 			case TYPE_CONTROLLER:
 				return tplPath + "controller.java";
+			case TYPE_PC_CONTROLLER:
+				return tplPath + "pcController.java";
 			case TYPE_MODEL:
 				return tplPath + "model.java";
 			case TYPE_PARAM:

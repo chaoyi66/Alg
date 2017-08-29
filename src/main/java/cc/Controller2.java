@@ -11,25 +11,23 @@ import java.util.concurrent.Executors;
 
 public class Controller2 {
 
-	private static TicketDAO ticketDAO;
-	private static ExecutorService eventLoop;
-	private static ExecutorService workers;
-	private static Map<String, ExecutorService> eventbus;
+	// 全局通用
+	private static TicketDAO ticketDAO = new TicketDAO();
+	private static ExecutorService acceptor = Executors.newSingleThreadExecutor();
+	private static ExecutorService eventLoops = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+	private static Map<String, ExecutorService> eventbus = Maps.newConcurrentMap();
 
 	public static void init() {
-		ticketDAO = new TicketDAO();
-		eventLoop = Executors.newSingleThreadExecutor();
-		workers = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-		eventbus = Maps.newConcurrentMap();
-		eventbus.put("ticketService", workers);
+		eventbus.put("ticketService", eventLoops);
 	}
 
 	public static void main(String args[]) throws Exception {
 		init();
 		for (int i = 0; i < 20; i++) {
+			// 模拟HTTP请求
 			HttpServletRequest request = null;
 			HttpServletResponse response = null;
-			eventLoop.submit(new HttpRequestEvent(i, rs -> check(request, response, rs)));
+			acceptor.submit(new HttpRequestEvent(i, rs -> check(request, response, rs)));
 		}
 	}
 
