@@ -24,7 +24,7 @@ public class CodeTplUtil {
 
 		// 创建临时文件
 		List<String> prefixs = Lists.newArrayList("tag", "activityTag", "waveTech",
-				"activity", "activityUser", "position", "trait", "mind",
+				"activity", "activityUser", "position",
 				"frequency", "manager", "organization", "power", "layout",
 				"setoutBom", "setout", "budget", "deal", "meetTemplate",
 				"meeting", "surveyItem", "activitySurvey", "tidy", "motive",
