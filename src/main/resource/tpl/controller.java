@@ -28,6 +28,7 @@ import java.util.List;
 public class %suController extends BaseController {
 
 	private static Logger logger = LoggerFactory.getLogger(%suController.class);
+
 	@Autowired
 	private %suService %ssService;
 
