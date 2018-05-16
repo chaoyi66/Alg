@@ -1,4 +1,4 @@
-package playground.concurrency;
+package concurrency;
 
 import java.util.HashMap;
 import java.util.Map;

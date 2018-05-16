@@ -1,4 +1,4 @@
-package playground.concurrency;
+package concurrency;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
