@@ -12,8 +12,7 @@ public class User {
 	String province;
 	Integer salary;
 	String ip;
-	Integer sex;
-	Boolean isNew;
+	String sex;
 	Integer click;
 	Integer stayTime;
 

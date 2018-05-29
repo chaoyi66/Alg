@@ -1,6 +1,9 @@
 package druid.test;
 
 import com.google.gson.Gson;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.joda.time.DateTime;
 
 import java.io.File;
@@ -14,11 +17,16 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
 public class WriteTestData {
-	static String[] provinces = new String[]{"北京", "上海", "广东", "江苏", "湖北", "四川", "云南", "浙江"};
+	private static String[] provinces = new String[]{"Beijing", "Shanghai", "Guangdong", "Jiangsu", "Hubei", "Sichuan", "Yunnan", "Zhejiang"};
 
-	public static void main(String[] args) {
-		int files = 500;
-		int rows = 10 * 10000;
+	public static void main(String[] args) throws ConfigurationException {
+
+		System.out.println("开始生成测试数据");
+		Configuration config = new PropertiesConfiguration("config.properties");
+		String folderPath = config.getString("druid.testdata.folder.path");
+		int files = config.getInt("druid.test.file.count");
+		int rows = config.getInt("druid.test.file.row");
+
 		CountDownLatch latch = new CountDownLatch(files);
 		long t1 = System.currentTimeMillis();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -27,7 +35,7 @@ public class WriteTestData {
 			new Thread(() -> {
 				try {
 					OutputStreamWriter writer = null;
-					String pathname = "/Users/chaoyi/Desktop/cluster/imply-data/testData/5000w/test" + finalJ + ".json";
+					String pathname = folderPath + "test" + finalJ + ".json";
 					File file = new File(pathname);
 					if (!file.exists()) {
 						file.createNewFile();
@@ -41,7 +49,7 @@ public class WriteTestData {
 
 					for (int j = 1; j <= rows; j++) {
 						User user = new User();
-						user.setName(UUID.randomUUID().toString().substring(0, 8));
+						user.setName(UUID.randomUUID().toString().substring(0, 4));
 						user.setIp(getRandomIp());
 						int age = new Random().nextInt(99);
 						user.setProvince(getProvince());
@@ -50,10 +58,11 @@ public class WriteTestData {
 								.format(new DateTime()
 										.minusSeconds(Math.abs((int) (new Random().nextGaussian() * 86400)))
 										.toDate()));
-						user.setSex(j & 1);
-						user.setSalary(Math.abs((int) new Random().nextGaussian()) * 100000);
-						user.setClick(new Random().nextInt(5));
-						user.setStayTime(new Random().nextInt(120));
+						user.setSex((j & 1) == 0 ? "F" : "M");
+						user.setSalary(Math.abs((int) (new Random().nextGaussian() * 100000)));
+						int click = age / 10;
+						user.setClick(click);
+						user.setStayTime(Math.abs((int) (new Random().nextGaussian() * 100)));
 						String s = new Gson().toJson(user);
 						writer.append(s + "\r\n");
 						// System.out.println(s);
@@ -102,8 +111,7 @@ public class WriteTestData {
 
 		Random rdint = new Random();
 		int index = rdint.nextInt(10);
-		String ip = num2ip(range[index][0] + new Random().nextInt(range[index][1] - range[index][0]));
-		return ip;
+		return num2ip(range[index][0] + new Random().nextInt(range[index][1] - range[index][0]));
 	}
 
 	public static String num2ip(int ip) {
