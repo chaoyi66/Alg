@@ -6,12 +6,10 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.joda.time.DateTime;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
@@ -19,13 +17,28 @@ import java.util.concurrent.CountDownLatch;
 public class WriteTestData {
 	private static String[] provinces = new String[]{"Beijing", "Shanghai", "Guangdong", "Jiangsu", "Hubei", "Sichuan", "Yunnan", "Zhejiang"};
 
-	public static void main(String[] args) throws ConfigurationException {
+	public static void main(String[] args) throws ConfigurationException, IOException {
+		final String folderPath;
+		final int files;
+		final int rows;
+		System.out.println("###############");
 
-		System.out.println("开始生成测试数据");
-		Configuration config = new PropertiesConfiguration("config.properties");
-		String folderPath = config.getString("druid.testdata.folder.path");
-		int files = config.getInt("druid.test.file.count");
-		int rows = config.getInt("druid.test.file.row");
+		if (args.length > 0) {
+			String filePath = args[0];
+			InputStream in = new BufferedInputStream(new FileInputStream(filePath));
+			Properties config = new Properties();
+			config.load(in);
+			folderPath = config.getProperty("druid.testdata.folder.path");
+			files = Integer.parseInt(config.getProperty("druid.test.file.count"));
+			rows = Integer.parseInt(config.getProperty("druid.test.file.row"));
+		} else {
+			System.out.println("inside config");
+			Configuration config = new PropertiesConfiguration("config.properties");
+			folderPath = config.getString("druid.testdata.folder.path");
+			files = config.getInt("druid.test.file.count");
+			rows = config.getInt("druid.test.file.row");
+
+		}
 
 		CountDownLatch latch = new CountDownLatch(files);
 		long t1 = System.currentTimeMillis();
@@ -60,8 +73,7 @@ public class WriteTestData {
 										.toDate()));
 						user.setSex((j & 1) == 0 ? "F" : "M");
 						user.setSalary(Math.abs((int) (new Random().nextGaussian() * 100000)));
-						int click = age / 10;
-						user.setClick(click);
+						user.setClick(new Random().nextInt(5));
 						user.setStayTime(Math.abs((int) (new Random().nextGaussian() * 100)));
 						String s = new Gson().toJson(user);
 						writer.append(s + "\r\n");
@@ -69,7 +81,6 @@ public class WriteTestData {
 					}
 
 					// 写入到缓冲区
-
 					writer.flush();
 					writer.close();
 					latch.countDown();
