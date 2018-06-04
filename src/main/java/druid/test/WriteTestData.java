@@ -77,7 +77,7 @@ public class WriteTestData {
 						user.setStayTime(Math.abs((int) (new Random().nextGaussian() * 100)));
 						String s = new Gson().toJson(user);
 						writer.append(s + "\r\n");
-						// System.out.println(s);
+						System.out.println(s);
 					}
 
 					// 写入到缓冲区
